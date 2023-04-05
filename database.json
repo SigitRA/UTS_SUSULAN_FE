@@ -1,0 +1,16 @@
+{
+  "students": [
+    {
+      "name": "Muhammad Noer Alfiansyah",
+      "school": "Politeknik LP3I Kampus Tasikmalaya",
+      "prodi": "Manajemen Informatika",
+      "id": 1
+    },
+    {
+      "name": "Prabu Siliwangi Suryadinata",
+      "school": "Politeknik LP3I Kampus Tasikmalaya",
+      "prodi": "Teknik Elektro",
+      "id": 2
+    }
+  ]
+}

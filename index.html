@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front-End</title>
+
+    <style>
+        table,th,tr,td{
+            border: 1px solid;
+            padding: 10px;
+        }
+        thead{
+            text-align: center;
+            font-weight: 900;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Aplikasi Data Siswa</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem rem vero ut nam debitis excepturi adipisci. Mollitia accusantium, libero illum obcaecati aspernatur dignissimos cum eius consequuntur laboriosam, voluptates veniam?</p>
+    <div class="container-fluid">
+        <form action="" method="post" id="form-input">
+        <input type="text" placeholder="Nama Lengkap" id="name" name="name">
+        <input type="text" placeholder="Asal Sekolah" id="school" name="school">
+        <select id="prodi">
+            <option value="-">Pilih Prodi</option>
+            <option value="Manajemen Informatika"> Manajemen Informatika</option>
+            <option value="Administrasi Bisnis">Administrasi Bisnis</option>
+            <option value="Manajemen Keuangan Perbankan">Manajemen Keuangan Perbankan</option>
+            <option value="Manajemen Pemasaran">Manajemen Pemasaran</option>
+            <option value="Teknik Otomotif">Teknik Otomotif</option>
+        </select>
+    </form>
+    </div>
+    <br>
+    <div>
+        <button id="btn_simpan" type="submit" name="submit">Simpan</button>
+    </div>
+    <br>
+    <div style="margin-top: 10px;">
+        <table>
+            <thead>
+                <tr>
+                    <td>No.</td>
+                    <td>Nama Lengkap</td>                
+                    <td>Sekolah</td>
+                    <td>Prodi</td>
+                    <td>Aksi</td>
+                </tr>
+            </thead>
+            <tbody id="result"></tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const getData = async() => {
+            await axios.get(`http://localhost:3000/students`)
+            .then((response) => {
+                let bucket = ``;
+                let students = response.data;
+                for(let i = 0; i<students.length; i++){
+                    bucket += `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td>${students[i].name}</td>
+                        <td>${students[i].school}</td>
+                        <td>${students[i].prodi}</td>
+                        <td><button id="btn_edit" type="submit" name="submit">Edit</button>
+                            <button id="btn_delete" type="submit" name="submit">Delete</button></td>
+                    </tr>
+                    `
+                }
+                document.getElementById('result').innerHTML = bucket;
+            })
+            .catch((error) => {
+                console.log(error.message);
+                let bucket = `
+                <tr>
+                    <td colspan="4">${error.message}</td>
+                </tr>
+                `;
+                document.getElementById('result').innerHTML = bucket;
+            });
+        }
+        getData();
+    </script>
+</body>
+</html>
