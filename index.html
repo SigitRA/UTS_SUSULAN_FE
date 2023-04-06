@@ -37,7 +37,7 @@
     </div>
     <br>
     <div>
-        <button id="btn_simpan" type="submit" name="submit">Simpan</button>
+        <button id="button" onclick="saveData()">Simpan</button>
     </div>
     <br>
     <div style="margin-top: 10px;">
@@ -68,8 +68,8 @@
                         <td>${students[i].name}</td>
                         <td>${students[i].school}</td>
                         <td>${students[i].prodi}</td>
-                        <td><button id="btn_edit" type="submit" name="submit">Edit</button>
-                            <button id="btn_delete" type="submit" name="submit">Delete</button></td>
+                        <td><button onclick="editData('${students[i].id}','${students[i].name}','${students[i].school}','${students[i].prodi}')">Edit</button>
+                            <button onclick="deleteData('${students[i].id}')">Delete</button></td>
                     </tr>
                     `
                 }
@@ -86,6 +86,67 @@
             });
         }
         getData();
+
+        const editData = (id, name, school, prodi) => {
+            document.getElementById('name').value = name;
+            document.getElementById('school').value = school;
+            document.getElementById('prodi').value = prodi;
+            document.getElementById('button').innerText = 'Ubah';
+            document.getElementById('button').setAttribute('onclick', `updateData(${id})`);
+
+        }
+
+        const updateData = async (id)=>{
+            let nameform = document.getElementById('name').value;
+            let schoolform = document.getElementById('school').value;
+            let prodiform = document.getElementById('prodi').value;
+            let text = "Betul data akan diubah ?"
+            if(confirm(text) == true){
+                await axios.patch(`http://localhost:3000/students/${id}`,{
+                name : nameform,
+                school : schoolform,
+                prodi : prodiform
+            })
+            .then((response)=>{
+                console.log(response);
+            })
+            .catch((error)=>{
+                console.log(error.message);
+            });
+            }
+
+        }
+
+        const saveData = async()=> {
+            let nameform = document.getElementById('name').value;
+            let schoolform = document.getElementById('school').value;
+            let prodiform = document.getElementById('prodi').value;
+            await axios.post(`http://localhost:3000/students`,{
+                name : nameform,
+                school : schoolform,
+                prodi : prodiform
+            })
+            then((response)=>{
+            alert('sukses')
+            console.log(response);
+        })
+        .catch((error)=>{
+            console.log(error.message);
+        });
+        }
+
+        const deleteData = async (id)=>{
+            let text = "Betul data akan dihapus ?"
+            if(confirm(text) == true){
+                await axios.delete(`http://localhost:3000/students/${id}`)
+            .then((response)=>{
+                console.log(response);
+            })
+            .catch((error)=>{
+                console.log(error.message);
+            })
+            }
+        }
     </script>
 </body>
 </html>

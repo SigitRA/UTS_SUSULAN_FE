@@ -11,6 +11,12 @@
       "school": "Politeknik LP3I Kampus Tasikmalaya",
       "prodi": "Teknik Elektro",
       "id": 2
+    },
+    {
+      "name": "Diponegoro",
+      "school": "SMPN 1 TASIKMALAYA",
+      "prodi": "Administrasi Bisnis",
+      "id": 4
     }
   ]
 }
