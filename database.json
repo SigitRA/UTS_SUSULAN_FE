@@ -1,22 +1,18 @@
 {
-  "students": [
+  "menu": [
     {
       "name": "Muhammad Noer Alfiansyah",
-      "school": "Politeknik LP3I Kampus Tasikmalaya",
-      "prodi": "Manajemen Informatika",
+      "order": "Mie Bakso Halus",
+      "count": "1",
+      "price": "10000",
       "id": 1
     },
     {
-      "name": "Prabu Siliwangi Suryadinata",
-      "school": "Politeknik LP3I Kampus Tasikmalaya",
-      "prodi": "Teknik Elektro",
+      "name": "Muhammad Noer Alfiansyah",
+      "order": "Mie Bakso Halus",
+      "count": "1",
+      "price": "10000",
       "id": 2
-    },
-    {
-      "name": "Diponegoro",
-      "school": "SMPN 1 TASIKMALAYA",
-      "prodi": "Administrasi Bisnis",
-      "id": 4
     }
   ]
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Front-End</title>
+    <title>M.NoerAlfiansyah-MI21A</title>
 
     <style>
         table,th,tr,td{
@@ -15,39 +15,75 @@
             text-align: center;
             font-weight: 900;
         }
+        img{
+            width: 100px;
+            height: 100px;
+        }
+        .box1{
+margin: 80px;
+width:120px;
+height:230px;
+border:solid 3px black;
+text-align:left;
+}
+.box2{
+margin: 80px;
+width:120px;
+height:230px;
+border:solid 3px black;
+text-align:left;
+}
+.box3{
+margin: 80px;
+width:120px;
+height:230px;
+border:solid 3px black;
+text-align:left;
+}
+.btn{
+    background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+}
     </style>
 </head>
 
 <body>
-    <h1>Aplikasi Data Siswa</h1>
+    <h1>Bakso Japri</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem rem vero ut nam debitis excepturi adipisci. Mollitia accusantium, libero illum obcaecati aspernatur dignissimos cum eius consequuntur laboriosam, voluptates veniam?</p>
     <div class="container-fluid">
         <form action="" method="post" id="form-input">
-        <input type="text" placeholder="Nama Lengkap" id="name" name="name">
-        <input type="text" placeholder="Asal Sekolah" id="school" name="school">
-        <select id="prodi">
-            <option value="-">Pilih Prodi</option>
-            <option value="Manajemen Informatika"> Manajemen Informatika</option>
-            <option value="Administrasi Bisnis">Administrasi Bisnis</option>
-            <option value="Manajemen Keuangan Perbankan">Manajemen Keuangan Perbankan</option>
-            <option value="Manajemen Pemasaran">Manajemen Pemasaran</option>
-            <option value="Teknik Otomotif">Teknik Otomotif</option>
-        </select>
+            <p>Nama Pemesan : <input type="text" placeholder="Nama Lengkap" id="name" name="name"></p>
+            <div class="box">
+            <div class="box1">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="img/Mie_Bakso_Halus.jpg" alt="Card image cap" style="margin: 10px;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="margin: 10px;" id="order" value="Mie Bakso Halus"><b>Mie Bakso Halus</b></h5>
+                      <p class="card-text" style="margin: 10px;" id="price" value="10000">Rp. 10.000</p>
+                      <button type="submit" class="btn btn-primary" style="margin: 10px;" onclick="myFunction()">Pesan</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        
     </form>
     </div>
-    <br>
-    <div>
-        <button id="button" onclick="saveData()">Simpan</button>
-    </div>
-    <br>
     <div style="margin-top: 10px;">
         <table>
             <thead>
                 <tr>
                     <td>No.</td>
-                    <td>Nama Lengkap</td>                
-                    <td>Sekolah</td>
-                    <td>Prodi</td>
+                    <td>Nama</td>                
+                    <td>Pesanan</td>
+                    <td>Jumlah</td>
+                    <td>Harga</td>
+                    <td>Total</td>
                     <td>Aksi</td>
                 </tr>
             </thead>
@@ -57,19 +93,20 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         const getData = async() => {
-            await axios.get(`http://localhost:3000/students`)
+            await axios.get(`http://localhost:3000/menu`)
             .then((response) => {
                 let bucket = ``;
-                let students = response.data;
-                for(let i = 0; i<students.length; i++){
+                let menu = response.data;
+                for(let i = 0; i<menu.length; i++){
                     bucket += `
                     <tr>
                         <td>${i+1}</td>
-                        <td>${students[i].name}</td>
-                        <td>${students[i].school}</td>
-                        <td>${students[i].prodi}</td>
-                        <td><button onclick="editData('${students[i].id}','${students[i].name}','${students[i].school}','${students[i].prodi}')">Edit</button>
-                            <button onclick="deleteData('${students[i].id}')">Delete</button></td>
+                        <td>${menu[i].name}</td>
+                        <td>${menu[i].order}</td>
+                        <td>${menu[i].count}</td>
+                        <td>${menu[i].price}</td>
+                        <td>10000</td>
+                        <td><button onclick="deleteData('${menu[i].id}')">Delete</button></td>
                     </tr>
                     `
                 }
@@ -86,67 +123,6 @@
             });
         }
         getData();
-
-        const editData = (id, name, school, prodi) => {
-            document.getElementById('name').value = name;
-            document.getElementById('school').value = school;
-            document.getElementById('prodi').value = prodi;
-            document.getElementById('button').innerText = 'Ubah';
-            document.getElementById('button').setAttribute('onclick', `updateData(${id})`);
-
-        }
-
-        const updateData = async (id)=>{
-            let nameform = document.getElementById('name').value;
-            let schoolform = document.getElementById('school').value;
-            let prodiform = document.getElementById('prodi').value;
-            let text = "Betul data akan diubah ?"
-            if(confirm(text) == true){
-                await axios.patch(`http://localhost:3000/students/${id}`,{
-                name : nameform,
-                school : schoolform,
-                prodi : prodiform
-            })
-            .then((response)=>{
-                console.log(response);
-            })
-            .catch((error)=>{
-                console.log(error.message);
-            });
-            }
-
-        }
-
-        const saveData = async()=> {
-            let nameform = document.getElementById('name').value;
-            let schoolform = document.getElementById('school').value;
-            let prodiform = document.getElementById('prodi').value;
-            await axios.post(`http://localhost:3000/students`,{
-                name : nameform,
-                school : schoolform,
-                prodi : prodiform
-            })
-            then((response)=>{
-            alert('sukses')
-            console.log(response);
-        })
-        .catch((error)=>{
-            console.log(error.message);
-        });
-        }
-
-        const deleteData = async (id)=>{
-            let text = "Betul data akan dihapus ?"
-            if(confirm(text) == true){
-                await axios.delete(`http://localhost:3000/students/${id}`)
-            .then((response)=>{
-                console.log(response);
-            })
-            .catch((error)=>{
-                console.log(error.message);
-            })
-            }
-        }
     </script>
 </body>
 </html>
