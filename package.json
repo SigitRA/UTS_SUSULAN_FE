@@ -1,5 +1,14 @@
 {
+  "name": "sigit_uts_front-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "json-server": "^0.17.3"
+    "axios": "^1.6.3"
   }
 }
